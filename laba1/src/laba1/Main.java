@@ -9,26 +9,13 @@ public class Main {
 		// TODO Auto-generated method stub
 		final Stack<SysCall> st = new Stack<>();
 		final Core core = new Core(st);
-		Scanner scr = new Scanner(System.in);
-		String argum = "";
-		int id = 1000000;
-
+		
 		System.out.println("Вызовы: ");
 		core.com();
-
-		System.out.println("Введите id вызова:");
-		try {
-			id = Integer.parseInt(scr.next());
-		} catch (NumberFormatException e) {
-			System.out.println("ID должно быть целым числом");
-		}
-
-		System.out.println("Введите аргументы вызова:");
-		argum = scr.next();
-
-		st.push(new SysCall(id, "Вызов "+ id + "-й ", argum));
-		core.call(id);
-
-		scr.close();
+		
+		st.push(new SysCall(0, "Вызов "+ 0 + "-й ", "Copy"));
+		core.call(0);
+		st.push(new SysCall(0, "Вызов "+ 0 + "-й ", "Copy"));
+		core.call(1);
 	}
 }
