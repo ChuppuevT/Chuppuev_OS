@@ -42,43 +42,46 @@ public class Planner {
 		System.out.println("¬се процессы выполнены");
 	}
 	public void Execute(int index) {
-		if(quant<1) {
-			System.out.println("ƒанный квант времени меньше 1");
-			System.exit(0);
-		}
-		for (int i = 0, iq = 0; i < myProcesses.get(index).Amount(); i++, iq++) {
-			Thread thread = myProcesses.get(index).Lists(i);
-			int thQuant = quant / myProcesses.get(index).Amount();
-			if (iq < quant % myProcesses.get(index).Amount()) {
-				thQuant++;
-			}
-			if (!thread.needTime()) {
-				System.out.println(thread.getDescription() + " завершен");
-				myProcesses.get(index).procKiller(i);				
-				i--;
-				break;
-			}
-			while (thQuant > 0) {
-				if (thread.needTime() & myProcesses.get(index).isHaveTime() & thQuant > 0) {
-					thread.makeThread();
-					thQuant--;
-					myProcesses.get(index).setResultTime();
+		if(quant>0) {
+			for (int i = 0, iq = 0; i < myProcesses.get(index).Amount(); i++, iq++) {
+				Thread thread = myProcesses.get(index).Lists(i);
+				int thQuant = quant / myProcesses.get(index).Amount();
+				if (iq < quant % myProcesses.get(index).Amount()) {
+					thQuant++;
 				}
 				if (!thread.needTime()) {
 					System.out.println(thread.getDescription() + " завершен");
-					myProcesses.get(index).procKiller(i);						
+					myProcesses.get(index).procKiller(i);				
 					i--;
 					break;
 				}
-				if (!myProcesses.get(index).isHaveTime()) {
-					System.out.println("максимальное врем€ " + myProcesses.get(index).getDescription() + " завершен");
-					return;
+				while (thQuant > 0) {
+					if (thread.needTime() & myProcesses.get(index).isHaveTime() & thQuant > 0) {
+						thread.makeThread();
+						thQuant--;
+						myProcesses.get(index).setResultTime();
+					}
+					if (!thread.needTime()) {
+						System.out.println(thread.getDescription() + " завершен");
+						myProcesses.get(index).procKiller(i);						
+						i--;
+						break;
+					}
+					if (!myProcesses.get(index).isHaveTime()) {
+						System.out.println("максимальное врем€ " + myProcesses.get(index).getDescription() + " завершен");
+						return;
+					}
+					if (thQuant <= 0) {
+						System.out.println("квант на " + thread.getDescription() + " истек");
+						break;
+					}				
 				}
-				if (thQuant <= 0) {
-					System.out.println("квант на " + thread.getDescription() + " истек");
-					break;
-				}				
 			}
 		}
+		else {
+			System.out.println("ƒанный квант времени меньше 1");
+			System.exit(0);
+		}
+		
 	}
 }
