@@ -3,7 +3,7 @@ package lab3;
 import java.util.ArrayList;
 
 public class Process {
-	private int id;
+	/*private int id;
 	private int countPages;
 	private ArrayList<Integer> pagesId;
 	private ArrayList<Page> processes;
@@ -34,6 +34,6 @@ public class Process {
 	public int addPage(Page page) {
 		processes.add(page);
 		return processes.indexOf(page);
-	}
+	}*/
 }
 
