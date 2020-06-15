@@ -19,13 +19,16 @@ public class Memory {
         index = 0;
     }
 
-    private void clockAlgorithm(Page page){
+    private void secondAlgorithm(Page page){
         for (;;) {
             if(index == tablePageFrames.size()){
                 index = 0;
             }
-            if(tablePageFrames.get(index).isR()){
+            if(tablePageFrames.get(index).isR() && !page.isPresence_absence()){
                 tablePageFrames.get(index).setR(false);
+                tablePageFrames.add(index, page);
+                tablePageFrames.remove(index);
+                System.out.println("Страница № ---------------");
                 index++;
             }else{
                 tablePageFrames.get(index).setPresence_absence(false);
@@ -41,6 +44,25 @@ public class Memory {
             }
         }
     }
+    /*for(int i = 0; i< Table.size(); i++) {
+        int number = Table.get(i).getNumberOfPhysicalPage();
+        if(Table.get(i).r() == false && Table.get(i).isInPhysicalMemory()) {
+            System.out.println("Страница № " + Table.get(i).getPageNumber() + "выгружена на диск," + " так как признак обращения сброшен");
+            physicalMemory.sendPageToDisk(number);
+            Table.get(i).removeFromPhysicalMemory();
+            Table.get(i).setNumberOfPhysicalPage(-1);
+            break;
+        }
+        else {
+            Table.get(i).r(false);
+            Table.add(Table.get(i));
+            Table.remove(i);
+            System.out.println("Страница № " + Table.get(i).getPageNumber() + "перемещена в конец очереди, признак обращения сброшен");
+        }
+
+
+    }*/
+    
     public void inputNumberOfPage(int pageIndex){
         Page page = tablePages.get(pageIndex);
         if(!page.isPresence_absence()){
@@ -51,7 +73,7 @@ public class Memory {
                 int indexOfPageFrames = tablePageFrames.indexOf(page);
                 page.setPage_frame_number(indexOfPageFrames);
             }else if(tablePageFrames.size() == countPageFrames){
-                clockAlgorithm(page);
+               secondAlgorithm(page);
             }
         }else{
             page.setR(true);
