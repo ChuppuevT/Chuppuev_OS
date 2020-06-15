@@ -11,7 +11,10 @@ public class SecondCh {
         this.physicalMemory = physicalMemory;
     }
     
-    public void start() {
+    
+    
+    
+    public void algoritm() {
         for(int i = 0; i< Table.size(); i++) {
             int number = Table.get(i).getNumberOfPhysicalPage();
             if(!Table.get(i).r() && Table.get(i).isInPhysicalMemory()) {
@@ -27,7 +30,7 @@ public class SecondCh {
                 Table.add(Table.get(i));
                 Table.remove(i);
                 System.out.println("Страница № " + Table.get(i).getPageNumber() 
-                		+ " перемещена в конец очереди, признак обращения сброшен");
+                		+ " перемещена в конец очереди, обращение сброшено");
             }
         }
     }

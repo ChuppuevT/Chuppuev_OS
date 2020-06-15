@@ -22,7 +22,7 @@ public class MemManager {
             else{
                 System.out.println("Все физ страницы заняты, запуск алгоритма замещения страниц");
                 clock = new SecondCh(Table, physicalMemory);
-                clock.start();
+                clock.algoritm();
                 implementPage(address,Table);
             }
         }
